@@ -1,16 +1,17 @@
 {
-    "name": "jiivo-conector",
-    "description": "Jiivo Dialogflow Connector",
-    "version": "1.0",
-    "private": true,
+    "name": "jivochat-conector",
+    "description": "JivoChat Dialogflow Connector",
     "license": "Apache Version 2.0",
     "author": "Michael Barney",
     "engines": {
-      "node": "8"
+      "node": "10"
+    },
+    "scripts": {
+
     },
     "dependencies": {
-      "dialogflow": "^1.2",
-      "express": "^4.17",
+      "dialogflow": "*",
+      "express": "*",
       "axios": "*"
     }
 }
