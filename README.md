@@ -47,7 +47,8 @@ A simple way to connect and integrate Dialogflow and JivoChat to create great ex
 ## How to Invite an Agent
 
 With the integration complete, you are also able to invite an agent to a client's conversation. To do so, just add a normal Text Response on Dialogflow with the text **INVITE_AGENT**:
-![enter image description here](https://i.imgur.com/1jW9x9h.png)
+
+![INVITE_AGENT Text Response](https://i.imgur.com/1jW9x9h.png)
 
 Now, whenever this text response is sent to the user, an agent on the JivoChat Dashboard will be notified to talk to the client.
 
