@@ -1,0 +1,16 @@
+{
+    "name": "jiivo-conector",
+    "description": "Jiivo Dialogflow Connector",
+    "version": "1.0",
+    "private": true,
+    "license": "Apache Version 2.0",
+    "author": "Michael Barney",
+    "engines": {
+      "node": "8"
+    },
+    "dependencies": {
+      "dialogflow": "^1.2",
+      "express": "^4.17",
+      "axios": "*"
+    }
+}
