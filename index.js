@@ -17,24 +17,38 @@ const jivoEndpoint = `https://bot.jivosite.com/webhooks/${PROVIDER_ID}/dialogflo
 // Axios configuration
 const axios = require("axios");
 
-// Endpoint
+// Timestamp on instance initialization
+const startTime = new Date();
+
 router.post("/dialogflow", async (request, response) => {
+  // Ignore messages on Cold Start
+  const currentTime = new Date();
+  var timeDiff = currentTime - startTime;
+  if(timeDiff < 1000){
+    response.sendStatus(503)
+    return response;
+  }
+  
+  // Collect request data
   const body = request.body;
   const cliendId = body.client_id;
   const chatId = body.chat_id;
 
+  // Immediately send a 200 response
   response.writeHead(200);
-
+  
+  // Process text messages
   if (body.event == "CLIENT_MESSAGE" && body.message.type == "TEXT") {
     const text = body.message.text;
-    await processText(text, cliendId, chatId);
+    await _processText(text, cliendId, chatId);
   }
-
+  
+  // End the Response
   response.end();
   return response;
 });
 
-const processText = async (text, clientId, chatId) => {
+const _processText = async (text, clientId, chatId) => {
   const dialogflowTextResponses = await _getDialogflowTextResponses(
     text,
     clientId
@@ -48,7 +62,6 @@ const processText = async (text, clientId, chatId) => {
   }
 };
 
-// Helper Functions
 const _getDialogflowTextResponses = async (text, cliendId) => {
   const dialogflowSessionPath = dialogflowSessionClient.sessionPath(
     PROJECT_ID,
