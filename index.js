@@ -17,14 +17,14 @@ const jivoEndpoint = `https://bot.jivosite.com/webhooks/${PROVIDER_ID}/dialogflo
 // Axios configuration
 const axios = require("axios");
 
-// Timestamp on instance initialization
-const startTime = new Date();
+// Function call counter
+let counter = 0;
 
 router.post("/dialogflow", async (request, response) => {
-  // Ignore messages on Cold Start
-  const currentTime = new Date();
-  var timeDiff = currentTime - startTime;
-  if(timeDiff < 1000){
+  // Ignore first two messages
+  if(counter < 2){
+    counter += 1;
+    await _getDialogflowTextResponses("warmup","coldStart");
     response.sendStatus(503)
     return response;
   }
@@ -42,7 +42,7 @@ router.post("/dialogflow", async (request, response) => {
     const text = body.message.text;
     await _processText(text, cliendId, chatId);
   }
-  
+
   // End the Response
   response.end();
   return response;
